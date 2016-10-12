@@ -17,14 +17,14 @@ deps := $(OBJS:%.o=.%.o.d)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -MMD -MF .$@.d -c $<
 
-sort: $(OBJS) main.c
+sort: $(OBJS) main.c mergesort.c
 	$(CC) $(CFLAGS) -o $@ $^ -rdynamic
 
-sort_autotest: $(OBJS) main.c
+sort_autotest: $(OBJS) main.c mergesort.c
 	$(CC) $(CFLAGS) -DAUTOTEST -o $@ $^ -rdynamic
 
 clean:
-	rm -f $(OBJS) sort sort_autotest
+	rm -f *.o sort sort_autotest
 	@rm -rf $(deps)
 
 -include $(deps)
