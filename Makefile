@@ -1,12 +1,13 @@
 CC = gcc
 CFLAGS = -std=gnu99 -Wall -g -pthread
-OBJS = list.o threadpool.o main.o
+
+OBJS = list.o threadpool.o
 
 .PHONY: all clean test
 
 GIT_HOOKS := .git/hooks/pre-commit
 
-all: $(GIT_HOOKS) sort
+all: $(GIT_HOOKS) sort sort_autotest
 
 $(GIT_HOOKS):
 	@scripts/install-git-hooks
@@ -16,11 +17,14 @@ deps := $(OBJS:%.o=.%.o.d)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -MMD -MF .$@.d -c $<
 
-sort: $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) -rdynamic
+sort: $(OBJS) main.c
+	$(CC) $(CFLAGS) -o $@ $^ -rdynamic
+
+sort_autotest: $(OBJS) main.c
+	$(CC) $(CFLAGS) -DAUTOTEST -o $@ $^ -rdynamic
 
 clean:
-	rm -f $(OBJS) sort
+	rm -f $(OBJS) sort sort_autotest
 	@rm -rf $(deps)
 
 -include $(deps)

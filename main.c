@@ -84,7 +84,9 @@ void merge(void *data)
         task_t *_task = (task_t *) malloc(sizeof(task_t));
         _task->func = NULL;
         tqueue_push(pool->queue, _task);
+#ifndef AUTOTEST
         list_print(_list);
+#endif
     }
 }
 
@@ -157,7 +159,9 @@ int main(int argc, char const *argv[])
     /* FIXME: remove all all occurrences of printf and scanf
      * in favor of automated test flow.
      */
+#ifndef AUTOTEST
     printf("input unsorted data line-by-line\n");
+#endif
     for (int i = 0; i < data_count; ++i) {
         long int data;
         scanf("%ld", &data);
