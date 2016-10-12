@@ -77,7 +77,7 @@ void merge(void *data)
         task_t *_task = (task_t *) malloc(sizeof(task_t));
         _task->func = NULL;
         tqueue_push(pool->queue, _task);
-#ifndef AUTOTEST
+#ifndef BENCH
         list_print(_list);
 #endif
     }

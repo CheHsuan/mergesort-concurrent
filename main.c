@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
     /* Read data */
     the_list = list_new();
 
-#ifndef AUTOTEST
+#ifndef BENCH
     printf("input unsorted data line-by-line\n");
 #endif
     for (int i = 0; i < data_count; ++i) {

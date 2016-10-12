@@ -21,7 +21,7 @@ sort: $(OBJS) main.c mergesort.c
 	$(CC) $(CFLAGS) -o $@ $^ -rdynamic
 
 sort_autotest: $(OBJS) main.c mergesort.c
-	$(CC) $(CFLAGS) -DAUTOTEST -o $@ $^ -rdynamic
+	$(CC) $(CFLAGS) -DBENCH -o $@ $^ -rdynamic
 
 clean:
 	rm -f *.o sort sort_autotest
