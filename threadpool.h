@@ -33,6 +33,7 @@ typedef struct {
 } tpool_t;
 
 int tpool_init(tpool_t *the_pool, uint32_t count, void *(*func)(void *));
+int tpool_close(tpool_t *the_pool);
 int tpool_free(tpool_t *the_pool);
 
 #endif

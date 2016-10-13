@@ -85,10 +85,15 @@ int tpool_init(tpool_t *the_pool, uint32_t tcount, void *(*func)(void *))
     return 0;
 }
 
-int tpool_free(tpool_t *the_pool)
+int tpool_close(tpool_t *the_pool)
 {
     for (uint32_t i = 0; i < the_pool->count; ++i)
         pthread_join(the_pool->threads[i], NULL);
+    return 0;
+}
+
+int tpool_free(tpool_t *the_pool)
+{
     free(the_pool->threads);
     tqueue_free(the_pool->queue);
     return 0;

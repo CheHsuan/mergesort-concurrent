@@ -9,7 +9,7 @@
 #define USAGE "usage: ./sort [thread_count] [input_count]\n"
 
 #ifdef BENCH
-#define CLOCK_ID CLOCK_REALTIME
+#define CLOCK_ID CLOCK_MONOTONIC_RAW
 #endif
 
 struct {
@@ -95,12 +95,14 @@ int main(int argc, char const *argv[])
     _task->func = cut_func;
     _task->arg = the_list;
     tqueue_push(pool->queue, _task);
-    /* release thread pool */
-    tpool_free(pool);
+    /* close thread pool */
+    tpool_close(pool);
 #ifdef BENCH
     clock_gettime(CLOCK_ID, &end);
     printf("%lf,", diff_in_second(start, end));
 #endif
+    /* release thread pool */
+    tpool_free(pool);
 
     return 0;
 }
